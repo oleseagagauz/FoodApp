@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+    {% if user.userprofile %}
+        <h2>Профиль</h2>
+        <div class="profile-container">
+            <div class="profile">
+                <p><strong>Пол:</strong> {{ user.userprofile.get_sex_display }}</p>
+                <p><strong>Цель:</strong> {{ user.userprofile.get_scope_display }}</p>
+                <p><strong>Уровень активности:</strong> {{ user.userprofile.get_activity_level_display }}</p>
+                <p><strong>Вес:</strong> {{ user.userprofile.weight }} кг</p>
+                <p><strong>Рост:</strong> {{ user.userprofile.height }} см</p>
+                <p><strong>Возраст:</strong> {{ user.userprofile.age }}</p>
+                <div class="edit-button">
+                    <a href="{% url 'user_profile:edit_profile' %}">Редактировать</a>
+                </div>
+            </div>
+        </div>
+
+    {% else %}
+        <p>У вас еще нет профиля. <a href="{% url 'user_profile:fill_profile' %}">Заполнить профиль</a>.</p>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Корзина{% endblock %}
+
+{% block content %}
+    <h2>Корзина</h2>
+    <div class="cart">
+        <div class="cart-container">
+            <div class="cart-block">
+                <ul>
+                    {% for item in cart_item %}
+                        <li>{{ item.quantity }} x {{ item.product.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="cart-block">
+                <h3>Всего {{ user_cart.total_calories }} ккал</h3>
+                <h3>Белки {{ user_cart.total_protein }} г</h3>
+                <h3>Жиры {{ user_cart.total_lipids }} г</h3>
+                <h3>Углеводы {{ user_cart.total_carbohydrates }} г</h3>
+                <h3>Вода {{ user_cart.total_water }} г</h3>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

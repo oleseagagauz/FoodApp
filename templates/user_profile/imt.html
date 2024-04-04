@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Индекс массы тела{% endblock %}
+
+{% block content %}
+    <h2>Индекс массы тела</h2>
+
+    <div class="imt-container">
+        <div class="imt">
+            <p>Ваш индекс: {{ user.userimt.value }}</p>
+            <p class="{% if user.userimt.status == 'Недостаточный' %}
+                                underweight
+                          {% elif user.userimt.status == 'Нормальный' %}
+                                normal
+                          {% elif user.userimt.status == 'Избыточный' %}
+                                overweight
+                          {% else %}
+                                obese
+                          {% endif %}">
+                Статус веса: {{ user.userimt.status }}</p>
+            {% if user.userimt.recommended_calories %}
+                <p>Рекомендуем потреблять {{ user.userimt.recommended_calories }} ккал в день</p>
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}

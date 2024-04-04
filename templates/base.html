@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/modal_window.css' %}">
+    <link rel="icon" href="{% static 'favicon/favicon.png' %}" type="image/x-icon">
+
+<style>
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('{% static "images/Healthy-Eating.jpg" %}');
+        background-size: cover;
+        background-attachment: fixed; /* Зафиксировать фон */
+        opacity: 1;
+        z-index: -1;
+    }
+</style>
+</head>
+<body>
+<header style="background-color: #11111f;">
+    <a href="{% url 'home:home' %}">
+        <div class="logo">
+            <img src="{% static 'images/logo/logo.png' %}" alt="Логотип">
+        </div>
+    </a>
+    <nav>
+        <ul>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'home:home' %}">Главная</a></li>
+                <li><a href="{% url 'user_profile:imt' %}">ИМТ</a></li>
+                <li><a href="{% url 'product:product_list' %}">Продукты</a></li>
+                <li><a href="{% url 'product:cart' %}">Корзина</a></li>
+            {% else %}
+                <li><a href="{% url 'home:home' %}">Главная</a></li>
+                <li><a href="{% url 'product:product_list' %}">Использованные калории</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <nav>
+        {% if user.is_authenticated %}
+            <ul>
+                <li><a href="{% url 'user_profile:view_profile' %}">Профиль</a></li>
+                <li><a href="{% url 'home:logout' %}">Выйти</a></li>
+                {#                <li>#}
+                {#                    <form action="{% url 'home:logout' %}" method="post">#}
+                {#                        {% csrf_token %}#}
+                {#                        <input type="hidden" name="logout" value="true">#}
+                {#                        <input type="submit" value="Выйти">#}
+                {#                    </form>#}
+                {#                </li>#}
+            </ul>
+        {% else %}
+            <ul>
+                <li><a href="{% url 'home:login' %}">Войти</a></li>
+                <li><a href="{% url 'home:register' %}">Зарегистрироваться</a></li>
+            </ul>
+        {% endif %}
+    </nav>
+</header>
+
+<main>
+    {% block content %}
+        <!-- Основной контент будет замещаться в дочерних шаблонах -->
+    {% endblock %}
+</main>
+
+
+<footer>
+    <p>&copy; 2024 Healthy Plate. Все права защищены.</p>
+</footer>
+
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
