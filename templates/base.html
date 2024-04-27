@@ -91,6 +91,7 @@
 
 <script>
     let waterPercentage = {{ water_percentage }};
+    document.documentElement.style.setProperty('--water-percentage', waterPercentage + '%');
     fillGlass(waterPercentage);
 </script>
 

@@ -1,3 +1,7 @@
+:root {
+    --water-percentage: 0;
+}
+
 body, h1, h2, h3, p, ul {
     margin: 0;
     padding: 0;
@@ -466,10 +470,11 @@ button[type="submit"]:hover {
     width: 55%;
     height: 90%;
     background-color: transparent;
-    border: solid 2px black;
-    border-radius: 10px 10px 35% 35%;
+    border: solid 4px black;
     overflow: hidden;
     position: relative; /* Позволяет использовать позиционирование для вложенных элементов */
+    transform: perspective(1000px) rotateX(-60deg) scaleY(1.8);
+    margin-top: 50px;
 }
 
 .fill {
@@ -477,8 +482,20 @@ button[type="submit"]:hover {
     bottom: 0; /* Располагаем внизу контейнера */
     width: 100%; /* Заполняем по ширине контейнера */
     height: 0; /* Начальное значение высоты, будет изменяться в JavaScript */
-    background-color: aqua; /* Цвет жидкости, вы можете изменить его на другой */
+    background: linear-gradient(to top, aqua, lightblue);
+    background-size: 300% 300%;
+    animation: fill-animation 2s ease-in-out forwards; /* Добавляем анимацию */
 }
+
+@keyframes fill-animation {
+    0% {
+        height: 0;
+    }
+    100% {
+        height: var(--water-percentage);
+    }
+}
+
 
 .text-a {
     color: black;
