@@ -11,6 +11,15 @@
 
     {% if user_cart %}
         <div class="cart-cnt">
+        
+            <div class="advice">
+                <div class="advice-text">
+                    <i class="fas fa-info-circle"></i>
+                    Сбалансированное питание - залог здоровья. Стремитесь к тому, чтобы в вашем рационе углеводы, белки
+                    и жиры были в соотношении 3:1:1.
+                </div>
+            </div>
+        
             {% if cart_item %}
                 <div class="cart-items">
                     {% for item in cart_item %}
@@ -28,9 +37,9 @@
                                      data-product-id="{{ item.product.id }}">
                             </div>
                         </div>
-                        
+
                         <div class="popup-background" id="popup-background_{{ item.product.id }}"></div>
-                        
+
                         <!-- Всплывающее окно для каждого продукта -->
                         <div id="popup_{{ item.product.id }}" class="popup">
                             <div class="full-add-cnt">
@@ -50,7 +59,7 @@
                                 <button type="submit">Добавить</button>
                             </form>
                         </div>
-                        
+
                         <!-- Всплывающее окно для каждого продукта -->
                         <div id="removePopup_{{ item.product.id }}" class="popup">
                             <div class="full-remove-cnt">
@@ -73,14 +82,6 @@
                     {% endfor %}
                 </div>
             {% endif %}
-
-            <div class="advice">
-                <div class="advice-text">
-                    <i class="fas fa-info-circle"></i>
-                    Сбалансированное питание - залог здоровья. Стремитесь к тому, чтобы в вашем рационе углеводы, белки
-                    и жиры были в соотношении 3:1:1.
-                </div>
-            </div>
 
             <div class="totals">
                 <div class="totals-title">Всего потреблено:</div>
