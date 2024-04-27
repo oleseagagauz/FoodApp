@@ -4,7 +4,11 @@
 
 {% block content %}
     {% if user.userprofile %}
-        <h2>Профиль</h2>
+        
+        <div class="centered">
+            <h1>Профиль</h1>
+        </div>
+
         <div class="profile-container">
             <div class="profile">
                 <p><strong>Пол:</strong> {{ user.userprofile.get_sex_display }}</p>
@@ -20,7 +24,15 @@
         </div>
 
     {% else %}
-        <p>У вас еще нет профиля. <a href="{% url 'user_profile:fill_profile' %}">Заполнить профиль</a>.</p>
+        <div class="centered">
+            <h1>У вас еще нет профиля.</h1>
+        </div>
+        <div class="space-30"></div>
+        <div class="centered">
+            <div class="btn_">
+                <a href="{% url 'user_profile:fill_profile' %}">Заполнить профиль</a>
+            </div>
+        </div>
     {% endif %}
 
 {% endblock %}

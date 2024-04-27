@@ -41,53 +41,57 @@ def fill_profile(request):
 
 
 def imt(request):
-    user = request.user
-    profile = user.userprofile
-    weight = profile.weight
-    height = profile.height / 100
-    imt_value = weight / pow(height, 2)
-    imt_value = round(imt_value, 1)
-
-    if imt_value < 18.5:
-        status = 'Недостаточный'
-    elif 18.5 <= imt_value < 25:
-        status = 'Нормальный'
-    elif 25 <= imt_value < 30:
-        status = 'Избыточный'
-    else:
-        status = 'Ожирение'
-
     try:
-        user_imt = UserIMT.objects.get(user=user)
-        user_imt.value = imt_value
-        user_imt.status = status
-        user_imt.save()
-    except UserIMT.DoesNotExist:
-        UserIMT.objects.create(user=user, value=imt_value, status=status)
+        user = request.user
+        profile = user.userprofile
+        weight = profile.weight
+        height = profile.height / 100
+        imt_value = weight / pow(height, 2)
+        imt_value = round(imt_value, 1)
 
-    profile = user.userprofile
-    formula = 9.99 * profile.weight + 6.25 * profile.height - 4.92 * profile.age
-    if profile.sex == 1:
-        # man
-        formula += 5
-    else:
-        # woman
-        formula -= 161
+        if imt_value < 18.5:
+            status = 'Недостаточный'
+        elif 18.5 <= imt_value < 25:
+            status = 'Нормальный'
+        elif 25 <= imt_value < 30:
+            status = 'Избыточный'
+        else:
+            status = 'Ожирение'
 
-    formula *= profile.activity_level
-    recommended_calories = round(formula)
-    if status == 'Недостаточный':
-        recommended_calories = round(recommended_calories + recommended_calories * 0.2)
-    if status == 'Избыточный' or status == 'Ожирение':
-        recommended_calories = round(recommended_calories - recommended_calories * 0.2)
-    else:
-        if profile.scope == 'weight_loss':
-            recommended_calories = round(recommended_calories - recommended_calories * 0.2)
-        elif profile.scope == 'muscle_gain':
+        try:
+            user_imt = UserIMT.objects.get(user=user)
+            user_imt.value = imt_value
+            user_imt.status = status
+            user_imt.save()
+        except UserIMT.DoesNotExist:
+            UserIMT.objects.create(user=user, value=imt_value, status=status)
+
+        profile = user.userprofile
+        formula = 9.99 * profile.weight + 6.25 * profile.height - 4.92 * profile.age
+        if profile.sex == 1:
+            # man
+            formula += 5
+        else:
+            # woman
+            formula -= 161
+
+        formula *= profile.activity_level
+        recommended_calories = round(formula)
+        if status == 'Недостаточный':
             recommended_calories = round(recommended_calories + recommended_calories * 0.2)
+        if status == 'Избыточный' or status == 'Ожирение':
+            recommended_calories = round(recommended_calories - recommended_calories * 0.2)
+        else:
+            if profile.scope == 'weight_loss':
+                recommended_calories = round(recommended_calories - recommended_calories * 0.2)
+            elif profile.scope == 'muscle_gain':
+                recommended_calories = round(recommended_calories + recommended_calories * 0.2)
 
-    user_imt = UserIMT.objects.get(user=user)
-    user_imt.recommended_calories = recommended_calories
-    user_imt.save()
+        user_imt = UserIMT.objects.get(user=user)
+        user_imt.recommended_calories = recommended_calories
+        user_imt.save()
 
-    return render(request, 'user_profile/imt.html')
+        return render(request, 'user_profile/imt.html',
+                      {'recommended_calories': recommended_calories})
+    except Exception as e:
+        return render(request, 'user_profile/imt.html')

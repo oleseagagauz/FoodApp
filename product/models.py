@@ -22,6 +22,7 @@ class Product(models.Model):
                                 decimal_places=1,
                                 validators=[MinValueValidator(0), MaxValueValidator(100)],
                                 default=0)
+    img = models.ImageField(upload_to='images/', default="images/img.png")
 
     def __str__(self):
         return self.name

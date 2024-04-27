@@ -4,12 +4,27 @@
 {% block title %}Индекс массы тела{% endblock %}
 
 {% block content %}
-    <h2>Индекс массы тела</h2>
 
-    <div class="imt-container">
-        <div class="imt">
-            <p>Ваш индекс: {{ user.userimt.value }}</p>
-            <p class="{% if user.userimt.status == 'Недостаточный' %}
+    <div class="centered">
+        <h1>Индекс массы тела</h1>
+    </div>
+
+    {% if user.userprofile %}
+        <div class="imt-cnt">
+
+            <div class="imt-info">
+                <div class="imt-info-text">
+                    <i class="fas fa-info-circle"></i>
+                    ИМТ является важным показателем для оценки нормальной массы тела и риска развития различных
+                    заболеваний, таких как ожирение, сердечно-сосудистые заболевания, диабет и др.
+                </div>
+            </div>
+
+            <div class="imt">
+                <div class="imt-text">Ваш индекс:</div>
+                <div class="imt-value">{{ user.userimt.value }}</div>
+                <div class="imt-status">
+                    <p class="{% if user.userimt.status == 'Недостаточный' %}
                                 underweight
                           {% elif user.userimt.status == 'Нормальный' %}
                                 normal
@@ -18,12 +33,24 @@
                           {% else %}
                                 obese
                           {% endif %}">
-                Статус веса: {{ user.userimt.status }}</p>
-            {% if user.userimt.recommended_calories %}
-                <p>Рекомендуем потреблять {{ user.userimt.recommended_calories }} ккал в день</p>
-            {% endif %}
+                        {{ user.userimt.status }} вес</p>
+                </div>
+            </div>
+
+            <div class="recommended-kcal">
+                <div class="rec-kcal-text">Рекомендуется потреблять:</div>
+                <div class="rec-kcal-value">{{ recommended_calories }} ккал</div>
+                <div class="rec-kcal-text"> в день.</div>
+                <div class="rec-kcal-info">Эта цифра была посчитана, исходя из ваших показателей.</div>
+            </div>
+
         </div>
-    </div>
+
+    {% else %}
+        <div class="centered">
+            <h1> Вам необходимо заполнить профиль, чтобы рассчитать ИМТ</h1>
+        </div>
+    {% endif %}
 
 
 {% endblock %}

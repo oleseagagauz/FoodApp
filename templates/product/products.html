@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Главная страница{% endblock %}
+{% block title %}Продукты{% endblock %}
 
 {% block content %}
-    <h2>Список продуктов</h2>
+
+    <div class="centered">
+        <h1>Список продуктов</h1>
+    </div>
+    <div class="mt10"></div>
+
     {% for product in products %}
         <div class="product">
             <div class="product-container">
@@ -22,26 +27,40 @@
                         {% endif %}
                     </div>
                 </div>
+                <div class="img-cnt">
+                    <div class="image-container">
+                        <img src="{{ product.img.url }}" alt="photo">
+                    </div>
+                </div>
                 {% if user.is_authenticated %}
                     <div class="block2">
-                        <button class="openPopup" data-product-id="{{ product.id }}">Добавить</button>
+                        <img src="{% static 'images/plus.png' %}" alt="Добавить" class="openPopup"
+                             data-product-id="{{ product.id }}">
                     </div>
                 {% endif %}
             </div>
 
+            <div class="popup-background" id="popup-background_{{ product.id }}"></div>
+
             <!-- Всплывающее окно для каждого продукта -->
             <div id="popup_{{ product.id }}" class="popup">
-                <h2>Add {{ product.name }} to Cart</h2>
+                <div class="full-add-cnt">
+                    <div class="add-container">
+                        <h2>Добавить {{ product.name }}?</h2>
+                    </div>
+                    <div class="btn">
+                        <img class="closePopup" data-product-id="{{ product.id }}"
+                             src="{% static 'images/cross.png' %}"
+                             alt="Close">
+                    </div>
+                </div>
                 <form id="addToCartForm_{{ product.id }}" method="post">
                     {% csrf_token %}
                     <input type="hidden" name="product_id" value="{{ product.id }}">
                     {{ form.quantity }}
-                    <button type="submit">Add to Cart</button>
-                    <button class="closePopup" data-product-id="{{ product.id }}" type="button">Close</button>
+                    <button type="submit">Добавить</button>
                 </form>
             </div>
-
-
         </div>
     {% endfor %}
 

@@ -21,6 +21,7 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 header {
+    user-select: none;
     background-size: cover;
     background-repeat: no-repeat;
     color: #fff;
@@ -162,9 +163,11 @@ button[type="submit"]:hover {
 .profile-container {
     display: flex;
     justify-content: center;
+    margin: 30px 0;
+    font-size: 19px;
 }
 
-.profile a {
+.profile a, .btn_ a {
     margin-top: 50px;
     padding: 10px 20px;
     font-size: 21px;
@@ -176,7 +179,7 @@ button[type="submit"]:hover {
     /*box-shadow: 0 2px 2px rgba(24, 111, 84, 0.7);*/
 }
 
-.profile a:hover {
+.profile a:hover, .btn_ a:hover {
     color: rgb(24, 111, 84);
     background-color: white;
 }
@@ -188,7 +191,7 @@ button[type="submit"]:hover {
 .profile {
     background-color: #332719;
     display: inline-block;
-    width: 40%;
+    width: 50%;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
@@ -199,29 +202,72 @@ button[type="submit"]:hover {
     justify-content: center;
 }
 
-.imt-container {
+.imt-cnt {
     display: flex;
-    align-items: center;
     justify-content: center;
+    gap: 60px;
+    margin-top: 30px;
 }
 
 .imt {
     background: #332719;
-    width: 30%;
-    height: 150px;
+    width: 300px;
+    height: 250px;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
 }
 
-
-.imt p {
-    padding: 5px;
-    font-size: 20px;
+.imt-text {
+    font-size: 36px;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
 
-.imt p:last-child {
-    margin-top: 20px;
+.imt-value {
+    font-size: 64px;
+    display: flex;
+    justify-content: center;
+}
+
+.imt-status {
+    font-size: 36px;
+    display: flex;
+    justify-content: center;
+}
+
+.imt-info, .recommended-kcal {
+    background: #332719;
+    width: 450px;
+    height: 250px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
+}
+
+.imt-info-text {
+    font-size: 24px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.rec-kcal-text, .rec-kcal-value {
+    display: flex;
+    justify-content: center;
+}
+
+.rec-kcal-text {
+    font-size: 26px;
+}
+
+.rec-kcal-value {
+    font-size: 64px;
+}
+
+.rec-kcal-info {
+    font-size: 20px;
+    text-align: center;
 }
 
 .product {
@@ -233,6 +279,7 @@ button[type="submit"]:hover {
     display: flex;
     background: #332719;
     width: 40%;
+    min-height: 230px;
     height: auto;
     text-shadow: none;
     padding: 20px 0 0 30px;
@@ -241,49 +288,297 @@ button[type="submit"]:hover {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
 }
 
+
 .block1 {
-    width: 70%;
+    width: 60%;
     justify-content: center;
     align-items: center;
 }
 
 .product-block {
     margin-bottom: 20px;
-
 }
+
 
 .block2 {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 30%;
+    width: 10%;
 }
 
-.cart {
+.block2 .openPopup, .block2 .openPopupRemove {
+    width: 30px;
+    height: 30px;
+    transition: 0.3s ease;
+}
+
+.block2 .openPopup:hover, .block2 .openPopupRemove:hover {
+    width: 35px;
+    height: 35px;
+}
+
+
+.img-cnt {
+    /*margin-top: 20px;*/
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10%;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Или используйте 'cover' в зависимости от нужного эффекта */
+}
+
+
+.cart-cnt {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 75px;
+}
+
+.totals {
+    user-select: none;
+    width: 300px;
+    height: 300px;
+    background: #332719;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
+    padding: 20px;
+}
+
+.totals-title {
+    display: flex;
+    justify-content: center;
+    font-size: 28px;
+}
+
+.total-kcal {
+    display: flex;
+    justify-content: center;
+    font-size: 52px;
+}
+
+.total-protein {
+    margin-top: 20px;
+}
+
+.total-protein, .total-lipids, .total-carbohydrates, .total-water {
+    font-size: 21px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.cart-items {
+    width: 600px;
+    user-select: none;
+    background: #332719;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
+    padding-top: 20px;
+    padding-left: 20px;
+    min-height: 320px;
+    margin-bottom: 20px;
+}
+
+.item-cnt {
+    display: flex;
+    justify-content: center;
+    width: 600px;
+    user-select: none;
+    background: #332719;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.item-info {
+    font-size: 24px;
+    margin-left: 10px;
+    width: 75%;
+}
+
+.advice {
+    width: 300px;
+    height: 300px;
+    background: #332719;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
+    padding: 20px;
+}
+
+.advice-text {
+    font-size: 26px;
+    margin-left: 10px;
+}
+
+.advice-text .fas.fa-info-circle {
+    margin-right: 10px;
+}
+
+
+.home_container {
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    gap: 75px;
+}
+
+.aqua {
+    background-color: white;
+    width: 350px;
+    height: 350px;
+    /*margin: 30px;*/
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.aqua-container {
+    width: 250px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.aqua-img {
+    width: 55%;
+    height: 90%;
+    background-color: transparent;
+    border: solid 2px black;
+    border-radius: 10px 10px 35% 35%;
+    overflow: hidden;
+    position: relative; /* Позволяет использовать позиционирование для вложенных элементов */
+}
+
+.fill {
+    position: absolute; /* Позиционируем относительно родительского контейнера */
+    bottom: 0; /* Располагаем внизу контейнера */
+    width: 100%; /* Заполняем по ширине контейнера */
+    height: 0; /* Начальное значение высоты, будет изменяться в JavaScript */
+    background-color: aqua; /* Цвет жидкости, вы можете изменить его на другой */
+}
+
+.text-a {
+    color: black;
+    font-size: 21px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*margin-top: 115px;*/
+}
+
+.diagram {
+    background: white;
+    border-radius: 10px;
+}
+
+#myChart {
+    padding-bottom: 10px;
+}
+
+.statistic {
+    width: 350px;
+    height: 350px;
+    background: white;
+    border-radius: 10px;
+}
+
+.calories {
+    margin-top: 40px;
+    color: black;
+    font-size: 52px;
+    text-align: center;
+}
+
+.bju {
+    color: black;
+    font-size: 36px;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.centered {
     display: flex;
     justify-content: center;
 }
 
-.cart-container {
-    display: flex;
-    background: #332719;
-    width: 32%;
-    height: auto;
-    text-shadow: none;
-    padding: 20px 0 0 30px;
-    margin: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
-}
-
-.cart-block {
-    padding: 0 20px 20px 20px;
-    width: 50%;
+.space-30 {
+    height: 30px;
 }
 
 footer {
+    user-select: none;
     background-color: #11111f;
     color: #fff;
     padding: 20px 0;
     text-align: center;
+}
+
+h1 {
+    user-select: none;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mask {
+    width: 100%;
+    height: 100%;
+    background: white;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    transition: 0.6s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader {
+    width: 75px;
+    height: 75px;
+    border: 10px solid rgba(71, 215, 172, 0.6);
+    border-radius: 50%;
+    border-left-color: #47d7ac;
+    animation: loader 1.3s linear infinite;
+}
+
+@keyframes loader {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+._hide {
+    animation: fadeOut 1s ease-in forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
 }

@@ -1,13 +1,80 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Главная страница{% endblock %}
 
 {% block content %}
     {% if user.is_authenticated %}
-        <h2>Привет, {{ user.first_name }}</h2>
+        
+        <div class="centered">
+            <h1>Привет, {{ user.first_name }}</h1>
+        </div>
+
+        <div class="home_container">
+            <div class="aqua">
+                {% if consumed_water %}
+                    <div class="text-a">Вы употребили {{ consumed_water }} мл воды</div>
+                {% else %}
+                    <div class="text-a">Вы употребили 0 мл воды</div>
+                {% endif %}
+
+                <div class="aqua-container">
+                    <div class="aqua-img">
+                        <div class="fill">
+                        </div>
+                    </div>
+                </div>
+                <div class="text-a">
+                    {% if water_percentage %}
+                        Это {{ water_percentage }} % от суточной нормы
+                    {% else %}
+                        Это 0 % от суточной нормы
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <div class="statistic">
+                {% if user_cart.total_calories %}
+                    <div class="calories">
+                        {{ user_cart.total_calories }} ккал
+                    </div>
+                {% else %}
+                    <div class="calories">
+                        0 ккал
+                    </div>
+                {% endif %}
+                <div class="bju">
+                    {% if user_cart.total_protein %}
+                        <div class="proteins">Белки: {{ user_cart.total_protein }} г.</div>
+                    {% else %}
+                        <div class="proteins">Белки: 0 г.</div>
+                    {% endif %}
+                    {% if user_cart.total_lipids %}
+                        <div class="lipids">Жиры: {{ user_cart.total_lipids }} г.</div>
+                    {% else %}
+                        <div class="lipids">Жиры: 0 г.</div>
+                    {% endif %}
+                    {% if user_cart.total_carbohydrates %}
+                        <div class="carbohydrates">Углеводы: {{ user_cart.total_carbohydrates }} г.</div>
+                    {% else %}
+                        <div class="carbohydrates">Углеводы: 0 г.</div>
+                    {% endif %}
+                </div>
+            </div>
+            {% if user_cart.total_carbohydrates or user_cart.total_lipids or user_cart.total_protein %}
+                <div class="diagram">
+                    <canvas id="myChart" width="350" height="340"></canvas>
+                </div>
+            {% endif %}
+        </div>
+        <h3 id="protein" data-protein='{{ total_proteins }}'></h3>
+        <h3 id="lipids" data-lipids="{{ total_lipids }}"></h3>
+        <h3 id="carbohydrates" data-carbohydrates="{{ total_carbohydrates }}"></h3>
+        <h3>{{ t }}</h3>
     {% else %}
         <h2>Добро, пожаловать на главную страницу!</h2>
         <h2>Для возможности пользоваться всеми возможностями сайта необходимо войти в аккаунт</h2>
     {% endif %}
-    
+
 {% endblock %}
